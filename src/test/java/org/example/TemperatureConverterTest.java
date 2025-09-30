@@ -35,4 +35,19 @@ class TemperatureConverterTest {
         assertFalse(converter.isExtremeTemperature(25));  // normal temperature
         assertFalse(converter.isExtremeTemperature(0));   // normal temperature
     }
+
+    // New test
+    @Test
+    void kelvinToCelsius() {
+        assertEquals(0, converter.kelvinToCelsius(273.15), 0.0001);      // freezing point
+        assertEquals(100, converter.kelvinToCelsius(373.15), 0.0001);    // boiling point
+        assertEquals(26.85, converter.kelvinToCelsius(300), 0.0001);     // example case
+        assertEquals(-273.15, converter.kelvinToCelsius(0), 0.0001);     // absolute zero
+    }
+
+    @Test
+    void mainMethodRuns() {
+        String[] args = {};
+        TemperatureConverter.main(args);
+    }
 }
