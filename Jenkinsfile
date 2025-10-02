@@ -1,22 +1,30 @@
 pipeline {
     agent any
-
+    tools {
+        maven 'Maven3'
+    }
     stages {
         stage('Checkout') {
             steps {
-                git branch: 'main', url: 'https://github.com/CrimsonBambi/OTP1.git'
+                script {
+                    git branch: 'main', url: 'https://github.com/CrimsonBambi/OTP1.git'
+                }
             }
         }
 
         stage('Build') {
             steps {
-                bat 'mvn clean compile'
+                script {
+                    bat 'mvn clean compile'
+                }
             }
         }
 
         stage('Unit Tests') {
             steps {
-                bat 'mvn test'
+                script {
+                    bat 'mvn test'
+                }
             }
             post {
                 always {
@@ -27,7 +35,9 @@ pipeline {
 
         stage('Code Coverage') {
             steps {
-                bat 'mvn jacoco:report'
+                script {
+                    bat 'mvn jacoco:report'
+                }
             }
             post {
                 always {
@@ -36,7 +46,6 @@ pipeline {
             }
         }
     }
-
     post {
         success {
             echo 'Pipeline completed successfully!'
